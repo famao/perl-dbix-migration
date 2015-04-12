@@ -155,6 +155,18 @@ sub version {
     return $version;
 }
 
+=item $self->version_available
+
+Get version available from schema files
+
+=cut
+
+sub version_available {
+    my $self = shift;
+    my $avail = $self->_newest;
+    return $avail;
+}
+
 sub _connect {
     my $self = shift;
     return $self->{_dbh}= $self->dbh->clone if $self->dbh;
@@ -202,7 +214,7 @@ sub _files {
         }
         closedir(DIR);
     }
-    return undef unless @$need == @files;
+    return undef unless @$need <= @files;
     return @files ? \@files : undef;
 }
 
