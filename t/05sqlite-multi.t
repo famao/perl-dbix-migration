@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 8;
+use Test::More tests => 9;
 
 use DBIx::Migration;
 use DBI;
@@ -11,6 +11,7 @@ my $m = DBIx::Migration->new;
 $m->dsn("dbi:$class:dbname=./t/sqlite_test_multi");
 $m->dir('./t/sql-multi/');
 is( $m->version, undef );
+is( $m->version_available, 2);
 
 $m->migrate(1);
 is( $m->version, 1 );
